@@ -34,6 +34,10 @@ class examdownloader(object):
         data = str(resp.read())
         conn.close()
 
+        if data.find("login") != -1:
+            updateStatus("Wrong username/password", "error")
+            return
+
         conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
         page = '/infogate/jsp/login/success.jsp;jsessionid='+sessionid+'?exe=ResultList'
         conn.request('GET', page, params, headersGet)
@@ -51,6 +55,10 @@ class examdownloader(object):
         params = self.getParams(data)
         maxDocIndex = int(params['maxNo'])
         params['maxDocIndex'] = params['maxNo']
+
+        if maxDocIndex < 1:
+            updateStatus('No papers available for this module', 'error')
+            return
 
         for i in range(1, maxDocIndex+1):
             updateStatus('Downloading ' + str(i) + ' of ' + str(maxDocIndex))
