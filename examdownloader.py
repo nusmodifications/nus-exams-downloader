@@ -89,7 +89,7 @@ class examdownloader(object):
             f.write(data)
             f.close()
 
-        callback(True)
+        callback(True, destination + '/' + title)
 
     def getParams(self, data):
         start = data.find('databasenamesasstring')
