@@ -19,11 +19,6 @@ class examdownloadergui(object):
 
         self.top = Frame(root)
         self.top.grid(row=0, column=0, padx=20, pady=20)
-        photo = PhotoImage(file='icon.gif')
-        label = Label(self.top, image=photo)
-        label.grid(row=0, column=0, columnspan=3, padx=20, pady=20)
-        label.image = photo
-
         self.top.columnconfigure(0, weight=1)
         self.top.rowconfigure(0, weight=1)
 
@@ -80,7 +75,7 @@ class examdownloadergui(object):
 
         def downloadCallback(status, lastfile=''):
             if status:
-                self.updateStatus('Done!', 'success')
+                self.updateStatus('Downloaded successfully!', 'success')
                 subprocess.call(['open', '-R', lastfile])
             else:
                 self.updateStatus('Failed!', 'error')

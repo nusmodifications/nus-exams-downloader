@@ -6,7 +6,7 @@ class examdownloader(object):
         self.mode = mode
 
     def getContents(self, module, username, password, destination, downloadEndCallback, updateStatus):
-        updateStatus('Connecting to server')
+        updateStatus('Connecting to NUS Library Portals...')
 
         conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/loginAction.do?execution=login'
