@@ -1,7 +1,22 @@
 NUS Exam Paper Downloader
 ===============
 
-Simple script to download exam papers from the NUS database. (a little messy, though it works)
-- Requires login details and module code to be inserted into the script.
-- Warning: BE CAREFUL NOT TO PUSH YOUR LOGIN DETAILS. (we'll change the code to accept command-line arguments at some point)
-- Works with Python 3.4
+Simple script to download exam papers from the NUS database. Requires NUSNET login.
+
+### Compiling the Binary
+
+1. Install `pyinstaller`:
+```
+$ pip install pyinstaller
+```
+
+2. Compile the app:
+```
+$ pyinstaller --onefile --windowed -i icon.icns -n 'NUS Exams Paper Downloader' examdownloader-gui.py
+```
+The compiled app can be found inside the `dist` folder. 
+
+### Credits
+- Oh Shunhao [(https://github.com/Ohohcakester)](https://github.com/Ohohcakester)
+- Liu Xinan [(https://github.com/xinan)](https://github.com/xinan)
+- Tay Yang Shun [(https://github.com/yangshun)](https://github.com/yangshun)
