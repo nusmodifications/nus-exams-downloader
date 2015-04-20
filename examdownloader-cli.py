@@ -1,9 +1,10 @@
 import sys
+import subprocess
 import examdownloader
 
 module = 'CS1010S'
-username = 'A0012345X'
-password = 'awesomepassword'
+username = 'A0012345'
+password = 'mysafepassword'
 destination = './'
 
 def startDownload(args):
@@ -15,10 +16,15 @@ def startDownload(args):
         destination = args[3]
     ed = examdownloader.examdownloader('CLI')
 
-    def downloadCallback(status):
-        print('Success!' if status else 'Failed...')
 
-    ed.getContents(module, username, password, destination, downloadCallback)
+    def updateStatus(msg, type='normal'):
+        print msg
+
+    def downloadCallback(status, lastfile=''):
+        print('Success!' if status else 'Failed...')
+        subprocess.call(['open', '-R', lastfile])
+
+    ed.getContents(module, username, password, destination, downloadCallback, updateStatus)
 
 if __name__ == '__main__':
     startDownload(sys.argv[1:])

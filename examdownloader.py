@@ -6,7 +6,7 @@ class examdownloader(object):
     def __init__(self, mode):
         self.mode = mode
 
-    def getContents(self, module, username, password, destination, updateStatus):
+    def getContents(self, module, username, password, destination, downloadEndCallback, updateStatus):
         updateStatus('Connecting to server')
 
         conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
@@ -108,7 +108,7 @@ class examdownloader(object):
             except Exception, e:
                 updateStatus('Invalid destination', 'error')
 
-        updateStatus('Done', 'success')
+        downloadEndCallback(True, destination + '/' + title)
 
     def getParams(self, data):
         start = data.find('databasenamesasstring')
