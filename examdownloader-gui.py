@@ -1,7 +1,8 @@
-import examdownloader
 from Tkinter import *
 import tkFileDialog
 import subprocess
+import thread
+import examdownloader
 
 class examdownloadergui(object):
     def __init__(self):
@@ -48,7 +49,7 @@ class examdownloadergui(object):
 
         root.mainloop()
 
-    def askForDestination(self): 
+    def askForDestination(self):
         self.destination = tkFileDialog.askdirectory(mustexist=False, parent=self.top, title='Choose a destination')
         self.destField.delete(0)
         self.destField.insert(0, self.destination)
@@ -66,15 +67,16 @@ class examdownloadergui(object):
                 subprocess.call(['open', '-R', lastfile])
             else:
                 self.updateStatus('Failed!', 'error')
+        thread.start_new_thread(ed.getContents, (module, username, password, destination, downloadCallback, self.updateStatus))
 
-        ed.getContents(module, username, password, destination, downloadCallback)
-
-    def updateStatus(self, msg, type='normal'): 
+    def updateStatus(self, msg, type='normal'):
         self.statusLabel['text'] = msg
         if type == 'success':
             self.statusLabel['fg'] = 'green'
         elif type == 'error':
             self.statusLabel['fg'] = 'red'
+        else:
+            self.statusLabel['fg'] = 'blue'
 
 if __name__ == '__main__':
     examdownloadergui()

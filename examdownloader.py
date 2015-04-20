@@ -5,7 +5,9 @@ class examdownloader(object):
     def __init__(self, mode):
         self.mode = mode
 
-    def getContents(self, module, username, password, destination, callback):
+    def getContents(self, module, username, password, destination, downloadEndCallback, updateStatus):
+        updateStatus('Connecting to server')
+
         conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/loginAction.do?execution=login'
         conn.request('GET', page)
@@ -32,6 +34,10 @@ class examdownloader(object):
         data = str(resp.read())
         conn.close()
 
+        if data.find("login") != -1:
+            updateStatus("Wrong username/password", "error")
+            return
+
         conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
         page = '/infogate/jsp/login/success.jsp;jsessionid='+sessionid+'?exe=ResultList'
         conn.request('GET', page, params, headersGet)
@@ -50,7 +56,13 @@ class examdownloader(object):
         maxDocIndex = int(params['maxNo'])
         params['maxDocIndex'] = params['maxNo']
 
+        if maxDocIndex < 1:
+            updateStatus('No papers available for this module', 'error')
+            return
+
         for i in range(1, maxDocIndex+1):
+            updateStatus('Downloading ' + str(i) + ' of ' + str(maxDocIndex))
+
             conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
             page = '/infogate/searchAction.do?execution=ViewSelectedResultListLong'
             params['preSelectedId'] = i
@@ -89,7 +101,7 @@ class examdownloader(object):
             f.write(data)
             f.close()
 
-        callback(True, destination + '/' + title)
+        downloadEndCallback(True, destination + '/' + title)
 
     def getParams(self, data):
         start = data.find('databasenamesasstring')
@@ -140,5 +152,10 @@ class examdownloader(object):
             value = data[openquotes+1:closequotes]
             params[name] = value
             start = data.find('name=', start, end)
+
+        maxNo = data.find("Listing 1 to ");
+        if maxNo != -1:
+            maxNo = int(data[maxNo+13:maxNo+15])
+        params['maxNo'] = maxNo
 
         return params
