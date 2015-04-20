@@ -14,6 +14,14 @@ class examdownloadergui(object):
         self.destination = ''
 
         root = Tk()
+        root.withdraw()
+        root.update_idletasks()  # Update "requested size" from geometry manager
+
+        x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
+        y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
+        root.geometry("+%d+%d" % (x, y))
+        root.deiconify()
+
         root.resizable(0, 0)
         root.title('NUS Past Year Exam Paper Downloader')
 
