@@ -89,7 +89,6 @@ class examdownloader(object):
             f.write(data)
             f.close()
 
-        print('Success!')
         callback(True)
 
     def getParams(self, data):
