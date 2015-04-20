@@ -5,7 +5,9 @@ class examdownloader(object):
     def __init__(self, mode):
         self.mode = mode
 
-    def getContents(self, module, username, password, destination, callback):
+    def getContents(self, module, username, password, destination, updateStatus):
+        updateStatus('Connecting to server')
+
         conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/loginAction.do?execution=login'
         conn.request('GET', page)
@@ -51,6 +53,8 @@ class examdownloader(object):
         params['maxDocIndex'] = params['maxNo']
 
         for i in range(1, maxDocIndex+1):
+            updateStatus('Downloading ' + str(i) + ' of ' + str(maxDocIndex))
+
             conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
             page = '/infogate/searchAction.do?execution=ViewSelectedResultListLong'
             params['preSelectedId'] = i
@@ -90,7 +94,7 @@ class examdownloader(object):
             f.close()
 
         print('Success!')
-        callback(True)
+        updateStatus('Done', 'success')
 
     def getParams(self, data):
         start = data.find('databasenamesasstring')
@@ -141,5 +145,10 @@ class examdownloader(object):
             value = data[openquotes+1:closequotes]
             params[name] = value
             start = data.find('name=', start, end)
+
+        maxNo = data.find("Listing 1 to ");
+        if maxNo != -1:
+            maxNo = int(data[maxNo+13:maxNo+15])
+        params['maxNo'] = maxNo
 
         return params
