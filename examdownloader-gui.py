@@ -50,7 +50,7 @@ class examdownloadergui(object):
 
     def askForDestination(self):
         self.destination = tkFileDialog.askdirectory(mustexist=False, parent=self.top, title='Choose a destination')
-        self.destField.delete(0)
+        self.destField.delete(0, END)
         self.destField.insert(0, self.destination)
 
     def startDownload(self):

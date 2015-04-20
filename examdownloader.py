@@ -1,5 +1,6 @@
 import httplib
 import urllib
+import os
 
 class examdownloader(object):
     def __init__(self, mode):
@@ -96,10 +97,16 @@ class examdownloader(object):
             conn.close()
 
             title = title[title.find('file')+5:]
+            filename = destination + '/' + title
+            if not os.path.exists(os.path.dirname(filename)):
+                os.makedirs(os.path.dirname(filename))
             print('Writing ' + title)
-            f = open(destination + '/' + title, 'wb+')
-            f.write(data)
-            f.close()
+            try:
+                f = open(filename, 'wb')
+                f.write(data)
+                f.close()
+            except Exception, e:
+                updateStatus('Invalid destination', 'error')
 
         updateStatus('Done', 'success')
 
