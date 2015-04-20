@@ -19,6 +19,11 @@ class examdownloadergui(object):
         self.top.columnconfigure(0, weight=1)
         self.top.rowconfigure(0, weight=1)
 
+        photo = PhotoImage(file='icon.gif')
+        label = Label(self.top, image=photo)
+        label.image = photo # keep a reference!
+        label.grid(row=1, column=0, columnspan=3, padx=20, pady=20)
+
         moduleLabel = Label(self.top, text='Module Code:')
         moduleLabel.grid(row=1, column=0)
         self.moduleField = Entry(self.top, bd=2, textvariable=self.module)
