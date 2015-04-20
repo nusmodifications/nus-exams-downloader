@@ -101,7 +101,6 @@ class examdownloader(object):
             f.write(data)
             f.close()
 
-        print('Success!')
         updateStatus('Done', 'success')
 
     def getParams(self, data):
