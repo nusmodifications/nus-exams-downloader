@@ -13,6 +13,7 @@ class examdownloadergui(object):
 
         root = Tk()
         root.title('NUS Past Year Exam Paper Downloader')
+        root.resizable(0, 0)
 
         self.top = Frame(root)
         self.top.grid(row=0, column=0, padx=20, pady=20)
