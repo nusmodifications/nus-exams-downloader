@@ -18,14 +18,14 @@ $ python examdownloader-cli.py <MODULE CODE> <NUSNET ID>
 ### Compiling the Binary
 
 1. Install `pyinstaller`:
-```
-$ pip install pyinstaller
-```
+  ```
+  $ pip install pyinstaller
+  ```
 
 2. Compile the app:
-```
-$ pyinstaller --onefile --windowed -i icon.icns -n 'NUS Exams Paper Downloader' examdownloader-gui.py
-```
+  ```
+  $ pyinstaller --onefile --windowed -i icon.icns -n 'NUS Exams Paper Downloader' examdownloader-gui.py
+  ```
 The compiled app can be found inside the `dist` folder. 
 
 ### Credits
