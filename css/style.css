@@ -20,6 +20,11 @@ p {
   background-color: #ee3952;
   background-position: center center;
   padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.nusmods-logo {
+  height: 20px;
 }
 
 .macbook-hero {
@@ -43,6 +48,10 @@ p {
 
 .faq-qn {
   color: #ee3952;
+}
+
+.dl-label {
+  color: #eee;
 }
 
 footer {
