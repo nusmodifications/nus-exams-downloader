@@ -22,7 +22,6 @@ class examdownloadergui(object):
         root.geometry("+%d+%d" % (x, y))
         root.deiconify()
 
-        root.resizable(0, 0)
         root.title('NUS Past Year Exam Paper Downloader')
         root.resizable(0, 0)
 
