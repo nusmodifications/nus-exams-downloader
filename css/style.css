@@ -17,7 +17,7 @@ p {
 }
 
 .banner {
-  background-image: url('../img/red-polygon.jpg');
+  background-color: #ee3952;
   background-position: center center;
   padding-bottom: 40px;
 }
