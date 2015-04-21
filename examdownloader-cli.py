@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import getpass
 import examdownloader
 
 module = 'CS1010S'
@@ -15,8 +16,7 @@ def startDownload(args):
         module = args[0]
         username = args[1]
 
-    print('Enter password for ' + username + ': ')
-    password = raw_input()
+    password = getpass.getpass('Enter password for ' + username + ': ')
     ed = examdownloader.examdownloader('CLI')
 
 
