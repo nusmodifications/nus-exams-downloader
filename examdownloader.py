@@ -102,7 +102,7 @@ class examdownloader(object):
             conn.close()
 
             title = title[title.find('file')+5:]
-            filename = destination + '/' + title
+            filename = destination + '/' + module + '/' + title
             if not os.path.exists(os.path.dirname(filename)):
                 os.makedirs(os.path.dirname(filename))
             try:
