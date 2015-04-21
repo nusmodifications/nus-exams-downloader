@@ -4,6 +4,8 @@ import subprocess
 import thread
 import examdownloader
 
+FONT = ('Arial', 14, 'bold')
+
 class examdownloadergui(object):
     def __init__(self):
         self.module = ''
@@ -12,6 +14,15 @@ class examdownloadergui(object):
         self.destination = ''
 
         root = Tk()
+        root.withdraw()
+        root.update_idletasks()  # Update "requested size" from geometry manager
+
+        x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
+        y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
+        root.geometry("+%d+%d" % (x, y))
+        root.deiconify()
+
+        root.resizable(0, 0)
         root.title('NUS Past Year Exam Paper Downloader')
         root.resizable(0, 0)
 
@@ -20,33 +31,42 @@ class examdownloadergui(object):
         self.top.columnconfigure(0, weight=1)
         self.top.rowconfigure(0, weight=1)
 
-        moduleLabel = Label(self.top, text='Module Code:')
-        moduleLabel.grid(row=1, column=0)
+        titleLabel = Label(self.top, text='NUS PYP Downloader', font=('Arial', 28, 'bold'))
+        titleLabel.grid(row=1, column=0, columnspan=3, padx=20, pady=20)
+
+        moduleLabel = Label(self.top, text='Module Code:', font=FONT)
+        moduleLabel.grid(row=2, column=0)
         self.moduleField = Entry(self.top, bd=2, textvariable=self.module)
-        self.moduleField.grid(row=1, column=1, columnspan=2)
+        self.moduleField.grid(row=2, column=1)
+        empty = Label(self.top, text='')
+        empty.grid(row=2, column=2)
 
-        usernameLabel = Label(self.top, text='NUSNET ID:')
-        usernameLabel.grid(row=2, column=0)
+        usernameLabel = Label(self.top, text='NUSNET ID:', font=FONT)
+        usernameLabel.grid(row=3, column=0)
         self.usernameField = Entry(self.top, bd=2, textvariable=self.username)
-        self.usernameField.grid(row=2, column=1, columnspan=2)
+        self.usernameField.grid(row=3, column=1)
+        empty = Label(self.top, text='')
+        empty.grid(row=3, column=2)
 
-        passwordLabel = Label(self.top, text='Password:')
-        passwordLabel.grid(row=3, column=0)
+        passwordLabel = Label(self.top, text='Password:', font=FONT)
+        passwordLabel.grid(row=4, column=0)
         self.passwordField = Entry(self.top, bd=2, show='*', textvariable=self.password)
-        self.passwordField.grid(row=3, column=1, columnspan=2)
+        self.passwordField.grid(row=4, column=1)
+        empty = Label(self.top, text='')
+        empty.grid(row=4, column=2)
 
-        destLabel = Label(self.top, text='Destination:')
-        destLabel.grid(row=4, column=0)
+        destLabel = Label(self.top, text='Save To Destination:', font=FONT)
+        destLabel.grid(row=5, column=0)
         self.destField = Entry(self.top, bd=2, textvariable=self.destination)
-        self.destField.grid(row=4, column=1)
-        destButton = Button(self.top, text="...", command=self.askForDestination)
-        destButton.grid(row=4, column=2)
+        self.destField.grid(row=5, column=1)
+        destButton = Button(self.top, text='Choose Folder', command=self.askForDestination)
+        destButton.grid(row=5, column=2)
 
-        self.statusLabel = Label(self.top, text='^____^', justify=CENTER)
-        self.statusLabel.grid(row=5, columnspan=3)
+        self.statusLabel = Label(self.top, text='Brought to you by Oh Shunhao and NUSMods')
+        self.statusLabel.grid(row=6, columnspan=3, padx=20, pady=20)
 
-        startButton = Button(self.top, text='Start!', command=self.startDownload)
-        startButton.grid(row=6, columnspan=3)
+        startButton = Button(self.top, text='Start Download!', command=self.startDownload)
+        startButton.grid(row=7, columnspan=3)
 
         root.mainloop()
 
@@ -64,7 +84,7 @@ class examdownloadergui(object):
 
         def downloadCallback(status, lastfile=''):
             if status:
-                self.updateStatus('Done!', 'success')
+                self.updateStatus('Downloaded successfully!', 'success')
                 subprocess.call(['open', '-R', lastfile])
             else:
                 self.updateStatus('Paper not released by Department', 'error')

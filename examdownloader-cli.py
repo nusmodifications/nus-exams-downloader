@@ -1,19 +1,22 @@
-import sys
 import subprocess
+import sys
 import examdownloader
 
 module = 'CS1010S'
 username = 'A0012345'
-password = 'mysafepassword'
 destination = './'
 
 def startDownload(args):
-    global module, username, password, destination
+
+    global module, username
+    password = ''
+
     if len(args) > 0:
         module = args[0]
         username = args[1]
-        password = args[2]
-        destination = args[3]
+
+    print('Enter password for ' + username + ': ')
+    password = raw_input()
     ed = examdownloader.examdownloader('CLI')
 
 
