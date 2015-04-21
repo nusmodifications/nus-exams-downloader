@@ -56,6 +56,7 @@ class examdownloader(object):
         params = self.getParams(data)
         maxDocIndex = int(params['maxNo'])
         params['maxDocIndex'] = params['maxNo']
+        pdfs = {}
 
         if maxDocIndex < 1:
             updateStatus('No papers available for this module', 'error')
@@ -86,6 +87,10 @@ class examdownloader(object):
             openquotes = data.find('"', titleIndex)
             closequotes = data.find('"', openquotes+1)
             title = data[openquotes+1: closequotes]
+            pdfs[title] = page
+
+        counter = 1;
+        for title, page in pdfs.items():
 
             conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
             conn.request('GET', page, None, headersGet)
@@ -94,7 +99,8 @@ class examdownloader(object):
 
             conn.close()
 
-            updateStatus('Downloading ' + str(i) + ' of ' + str(maxDocIndex))
+            updateStatus('Downloading ' + str(counter) + ' of ' + str(len(pdfs)))
+            counter += 1
             title = title[title.find('file')+5:]
             filename = destination + '/' + title
             if not os.path.exists(os.path.dirname(filename)):
