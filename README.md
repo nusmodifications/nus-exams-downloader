@@ -5,15 +5,16 @@ Simple script to download exam papers from the NUS database. Requires NUSNET log
 
 Runs on Python 2.7 only.
 
-### Running via a Graphical User Interface
+### Using via Command Line
+```
+$ python examdownloader-cli.py <MODULE CODE> <NUSNET ID>
+```
+
+### Using via a Graphical User Interface
 ```
 $ python examdownloader-gui.py
 ```
 
-### Running via Command Line
-```
-$ python examdownloader-cli.py <MODULE CODE> <NUSNET ID>
-```
 
 ### Compiling the Binary
 
