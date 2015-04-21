@@ -62,8 +62,6 @@ class examdownloader(object):
             return
 
         for i in range(1, maxDocIndex+1):
-            updateStatus('Downloading ' + str(i) + ' of ' + str(maxDocIndex))
-
             conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
             page = '/infogate/searchAction.do?execution=ViewSelectedResultListLong'
             params['preSelectedId'] = i
@@ -96,6 +94,7 @@ class examdownloader(object):
 
             conn.close()
 
+            updateStatus('Downloading ' + str(i) + ' of ' + str(maxDocIndex))
             title = title[title.find('file')+5:]
             filename = destination + '/' + title
             if not os.path.exists(os.path.dirname(filename)):
@@ -108,7 +107,10 @@ class examdownloader(object):
             except Exception, e:
                 updateStatus('Invalid destination', 'error')
 
-        downloadEndCallback(True, destination + '/' + title)
+        if 'filename' in vars():
+            downloadEndCallback(True, filename)
+        else:
+            downloadEndCallback(False)
 
     def getParams(self, data):
         start = data.find('databasenamesasstring')

@@ -66,7 +66,8 @@ class examdownloadergui(object):
                 self.updateStatus('Done!', 'success')
                 subprocess.call(['open', '-R', lastfile])
             else:
-                self.updateStatus('Failed!', 'error')
+                self.updateStatus('Paper not released by Department', 'error')
+
         thread.start_new_thread(ed.getContents, (module, username, password, destination, downloadCallback, self.updateStatus))
 
     def updateStatus(self, msg, type='normal'):
