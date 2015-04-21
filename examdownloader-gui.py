@@ -81,9 +81,9 @@ class examdownloadergui(object):
         destination = self.destField.get()
         ed = examdownloader.examdownloader('GUI')
 
-        def downloadCallback(status, lastfile=''):
+        def downloadCallback(status, lastfile='', numFiles=0):
             if status:
-                self.updateStatus('Downloaded successfully!', 'success')
+                self.updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
                 subprocess.call(['open', '-R', lastfile])
             else:
                 self.updateStatus('Paper not released by Department', 'error')

@@ -23,9 +23,12 @@ def startDownload(args):
     def updateStatus(msg, type='normal'):
         print msg
 
-    def downloadCallback(status, lastfile=''):
-        print('Success!' if status else 'Failed...')
-        subprocess.call(['open', '-R', lastfile])
+    def downloadCallback(status, lastfile='', numFiles=0):
+        if status:
+            updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
+            subprocess.call(['open', '-R', lastfile])
+        else:
+            updateStatus('Paper not released by Department', 'error')
 
     ed.getContents(module, username, password, destination, downloadCallback, updateStatus)
 

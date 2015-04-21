@@ -89,8 +89,10 @@ class examdownloader(object):
             title = data[openquotes+1: closequotes]
             pdfs[title] = page
 
-        counter = 1;
+        counter = 0;
         for title, page in pdfs.items():
+            counter += 1
+            updateStatus('Downloading ' + str(counter) + ' of ' + str(len(pdfs)))
 
             conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
             conn.request('GET', page, None, headersGet)
@@ -99,8 +101,6 @@ class examdownloader(object):
 
             conn.close()
 
-            updateStatus('Downloading ' + str(counter) + ' of ' + str(len(pdfs)))
-            counter += 1
             title = title[title.find('file')+5:]
             filename = destination + '/' + title
             if not os.path.exists(os.path.dirname(filename)):
@@ -115,7 +115,7 @@ class examdownloader(object):
                 return
 
         if 'filename' in vars():
-            downloadEndCallback(True, filename)
+            downloadEndCallback(True, filename, counter)
         else:
             downloadEndCallback(False)
 
