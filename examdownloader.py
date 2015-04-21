@@ -99,13 +99,14 @@ class examdownloader(object):
             filename = destination + '/' + title
             if not os.path.exists(os.path.dirname(filename)):
                 os.makedirs(os.path.dirname(filename))
-            print('Writing ' + title)
             try:
                 f = open(filename, 'wb')
+                print('Writing ' + title)
                 f.write(data)
                 f.close()
             except Exception, e:
                 updateStatus('Invalid destination', 'error')
+                return
 
         if 'filename' in vars():
             downloadEndCallback(True, filename)
