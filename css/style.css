@@ -1,0 +1,64 @@
+*, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', sans-serif;
+}
+
+a {
+  color: #ee3952;
+}
+
+p {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.title {
+  color: #fff;
+  font-size: 48px;
+}
+
+.banner {
+  background-image: url('../img/red-polygon.jpg');
+  background-position: center center;
+  padding-bottom: 40px;
+}
+
+.macbook-hero {
+  position: relative;
+  top: 100px;
+}
+
+.details {
+  margin-top: 100px;
+  text-align: right;
+}
+
+.details .tagline {
+  color: #eee;
+  margin-bottom: 30px;
+}
+
+.main-content {
+  margin-top: 100px;
+}
+
+.faq-qn {
+  color: #ee3952;
+}
+
+footer {
+  color: #666;
+  margin: 20px 0;
+  text-align: center;
+}
+
+@media screen and (max-width: 990px) {
+  .details {
+    text-align: center;
+  }
+  .macbook-hero {
+    display: none;
+  }
+  .main-content {
+    margin-top: 20px;
+  }
+}
