@@ -38,21 +38,17 @@ class examdownloadergui(object):
         self.moduleField = Entry(self.top, bd=2, textvariable=self.module)
         self.moduleField.grid(row=2, column=1)
         empty = Label(self.top, text='')
-        empty.grid(row=2, column=2)
+        empty.grid(row=2, column=2, rowspan=3)
 
         usernameLabel = Label(self.top, text='NUSNET ID:', font=FONT)
         usernameLabel.grid(row=3, column=0)
         self.usernameField = Entry(self.top, bd=2, textvariable=self.username)
         self.usernameField.grid(row=3, column=1)
-        empty = Label(self.top, text='')
-        empty.grid(row=3, column=2)
 
         passwordLabel = Label(self.top, text='Password:', font=FONT)
         passwordLabel.grid(row=4, column=0)
         self.passwordField = Entry(self.top, bd=2, show='*', textvariable=self.password)
         self.passwordField.grid(row=4, column=1)
-        empty = Label(self.top, text='')
-        empty.grid(row=4, column=2)
 
         destLabel = Label(self.top, text='Save To Destination:', font=FONT)
         destLabel.grid(row=5, column=0)
