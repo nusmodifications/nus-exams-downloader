@@ -1,3 +1,5 @@
+<img src="icon.png" alt="Icon" width="128">
+
 NUS Exam Paper Downloader
 ===============
 
