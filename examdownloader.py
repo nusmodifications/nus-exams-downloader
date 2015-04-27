@@ -26,8 +26,13 @@ class examdownloader(object):
         headersGet = {
             'Cookie' : cookie
         }
-
-        params = 'userid='+username+'&password='+password+'&domain=NUSSTU&key=blankid%2BRESULT%2BEXAM%2B'+module
+        params = {
+            'userid': username,
+            'password': password,
+            'domain': 'NUSSTU',
+            'key': 'blankid+RESULT+EXAM+' + module
+        }
+        params = urllib.urlencode(params)
 
         conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
         conn.request('POST', page, params, headers)
