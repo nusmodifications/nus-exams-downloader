@@ -3,6 +3,8 @@
 NUS Exam Paper Downloader
 ===============
 
+[![Join the chat at https://gitter.im/nusmodifications/nus-exams-downloader](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nusmodifications/nus-exams-downloader?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Simple script to download exam papers from the NUS database. Requires NUSNET login.
 
 Runs on Python 2.7 only.
