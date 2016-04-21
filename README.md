@@ -27,9 +27,9 @@ $ python examdownloader-gui.py
 
 2. Compile the app:
   ```
-  $ pyinstaller --onefile --windowed -i icon.icns -n 'NUS Exams Paper Downloader' examdownloader-gui.py
+  $ pyinstaller build.spec
   ```
-The compiled app can be found inside the `dist` folder. 
+The compiled app can be found inside the `dist` folder.
 
 ### Credits
 
