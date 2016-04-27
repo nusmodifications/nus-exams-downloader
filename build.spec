@@ -1,6 +1,10 @@
 # -*- mode: python -*-
 
+import platform
+
 block_cipher = None
+
+icon_filename = 'icon.icns' if platform.system() == 'Darwin' else 'icon.ico'
 
 a = Analysis(['examdownloader-gui.py'],
              pathex=['.'],
@@ -28,7 +32,7 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False,
-          icon='icon.icns')
+          icon=icon_filename)
 
 app = BUNDLE(exe,
              name='NUS Exams Paper Downloader.app',
