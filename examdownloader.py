@@ -44,12 +44,12 @@ class examdownloader(object):
             updateStatus("Wrong username/password", "error")
             return
 
-        conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
+        conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/jsp/login/success.jsp;jsessionid='+sessionid+'?exe=ResultList'
         conn.request('GET', page, params, headersGet)
         conn.close()
 
-        conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
+        conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/searchAction.do?execution=ResultList'
         params = 'database=EXAM&searchstring='+module+'&d='
         conn.request('POST', page, params, headers)
@@ -68,7 +68,7 @@ class examdownloader(object):
             return
 
         for i in range(1, maxDocIndex+1):
-            conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
+            conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
             page = '/infogate/searchAction.do?execution=ViewSelectedResultListLong'
             params['preSelectedId'] = i
             params['exportids'] = i
@@ -99,7 +99,7 @@ class examdownloader(object):
             counter += 1
             updateStatus('Downloading ' + str(counter) + ' of ' + str(len(pdfs)))
 
-            conn = httplib.HTTPConnection('libbrs.nus.edu.sg:8080')
+            conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
             conn.request('GET', page, None, headersGet)
             resp = conn.getresponse()
             data = resp.read()
