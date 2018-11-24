@@ -21,7 +21,7 @@ def startDownload(args):
 
 
     def updateStatus(msg, type='normal'):
-        print msg
+        print(msg)
 
     def downloadCallback(status, lastfile='', numFiles=0):
         if status:

@@ -1,7 +1,7 @@
-from Tkinter import *
-import tkFileDialog
+from tkinter import *
+import tkinter.filedialog
 import subprocess
-import thread
+import _thread
 import examdownloader
 
 FONT = ('Arial', 14, 'bold')
@@ -66,7 +66,7 @@ class examdownloadergui(object):
         root.mainloop()
 
     def askForDestination(self):
-        self.destination = tkFileDialog.askdirectory(mustexist=False, parent=self.top, title='Choose a destination')
+        self.destination = tkinter.filedialog.askdirectory(mustexist=False, parent=self.top, title='Choose a destination')
         self.destField.delete(0, END)
         self.destField.insert(0, self.destination)
 
@@ -84,7 +84,7 @@ class examdownloadergui(object):
             else:
                 self.updateStatus('Paper not released by Department', 'error')
 
-        thread.start_new_thread(ed.getContents, (module, username, password, destination, downloadCallback, self.updateStatus))
+        _thread.start_new_thread(ed.getContents, (module, username, password, destination, downloadCallback, self.updateStatus))
 
     def updateStatus(self, msg, type='normal'):
         self.statusLabel['text'] = msg
