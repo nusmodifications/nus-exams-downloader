@@ -35,4 +35,4 @@ The compiled app can be found inside the `dist` folder.
 
 - Oh Shunhao [(https://github.com/Ohohcakester)](https://github.com/Ohohcakester)
 - Liu Xinan [(https://github.com/xinan)](https://github.com/xinan)
-- Tay Yang Shun [(https://github.com/yangshun)](https://github.com/yangshun)
+- Yangshun Tay [(https://github.com/yangshun)](https://github.com/yangshun)
