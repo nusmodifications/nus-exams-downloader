@@ -2,23 +2,17 @@ import subprocess
 import sys
 import getpass
 import examdownloader
+import argparse
 
-module = 'CS1010S'
-username = 'A0012345'
-destination = './'
+# Insert configuration here
+username = ""       # NUSNET ID i.e. "E0123456"
+password = ""       # NUSNET password
+destination = ""    # target destination i.e. "." (current directory)
 
-def startDownload(args):
 
-    global module, username
-    password = ''
+def startDownload(module, username, destination, password):
 
-    if len(args) > 0:
-        module = args[0]
-        username = args[1]
-
-    password = getpass.getpass('Enter password for ' + username + ': ')
     ed = examdownloader.examdownloader('CLI')
-
 
     def updateStatus(msg, type='normal'):
         print msg
@@ -32,5 +26,29 @@ def startDownload(args):
 
     ed.getContents(module, username, password, destination, downloadCallback, updateStatus)
 
+
 if __name__ == '__main__':
-    startDownload(sys.argv[1:])
+    parser = argparse.ArgumentParser(description="Downloads exam papers from UCL automatically")
+    parser.add_argument('-u', '--user', help="NUSNET ID", type=str)
+    parser.add_argument('-d', '--dest', help="Path to store files", type=str)
+    parser.add_argument('-m', '--module', help="Module of which to download exam papers", type=str)
+    args = vars(parser.parse_args())
+
+    module = args.get("module")
+    if not username:
+        username = args.get("user")
+    if not username:
+        username = raw_input('Enter NUSNET ID: ')
+
+    if not password:
+        password = getpass.getpass('Enter password for {}: '.format(username))
+
+    if not module:
+        module = raw_input("Enter module to download exams for: ")
+
+    if not destination:
+        destination = args.get("dest")
+    if not destination:
+        destination = raw_input('Enter location to store exams in: ')
+
+    startDownload(module, username, destination, password)
