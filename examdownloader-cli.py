@@ -1,12 +1,10 @@
 import subprocess
-import sys
 import getpass
 import examdownloader
 import argparse
 
 # Insert configuration here
 username = ""       # NUSNET ID i.e. "E0123456"
-password = ""       # NUSNET password
 destination = ""    # target destination i.e. "." (current directory)
 
 
@@ -40,8 +38,7 @@ if __name__ == '__main__':
     if not username:
         username = raw_input('Enter NUSNET ID: ')
 
-    if not password:
-        password = getpass.getpass('Enter password for {}: '.format(username))
+    password = getpass.getpass('Enter password for {}: '.format(username))
 
     if not module:
         module = raw_input("Enter module to download exams for: ")
