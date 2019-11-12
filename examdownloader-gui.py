@@ -77,7 +77,7 @@ class examdownloadergui(object):
         destination = self.destField.get()
         ed = examdownloader.examdownloader('GUI')
 
-        def downloadCallback(status, lastfile='', numFiles=0):
+        def downloadCallback(status, numFiles=0):
             if status:
                 self.updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
             else:

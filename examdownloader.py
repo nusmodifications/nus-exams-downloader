@@ -120,7 +120,7 @@ class examdownloader(object):
                 return
 
         if 'filename' in vars():
-            downloadEndCallback(True, filename, counter)
+            downloadEndCallback(True, counter)
         else:
             downloadEndCallback(False)
 

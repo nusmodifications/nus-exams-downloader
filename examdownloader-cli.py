@@ -23,7 +23,7 @@ def startDownload(args):
     def updateStatus(msg, type='normal'):
         print msg
 
-    def downloadCallback(status, lastfile='', numFiles=0):
+    def downloadCallback(status, numFiles=0):
         if status:
             updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
         else:
