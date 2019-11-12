@@ -26,7 +26,6 @@ def startDownload(args):
     def downloadCallback(status, lastfile='', numFiles=0):
         if status:
             updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
-            subprocess.call(['open', '-R', lastfile])
         else:
             updateStatus('Paper not released by Department', 'error')
 

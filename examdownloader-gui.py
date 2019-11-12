@@ -80,7 +80,6 @@ class examdownloadergui(object):
         def downloadCallback(status, lastfile='', numFiles=0):
             if status:
                 self.updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
-                subprocess.call(['open', '-R', lastfile])
             else:
                 self.updateStatus('Paper not released by Department', 'error')
 
