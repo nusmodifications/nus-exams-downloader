@@ -26,7 +26,7 @@ def startDownload(module, username, destination, password):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Downloads exam papers from UCL automatically")
+    parser = argparse.ArgumentParser(description="Downloads exam papers from NUS Library Portal automatically")
     parser.add_argument('-u', '--user', help="NUSNET ID", type=str)
     parser.add_argument('-d', '--dest', help="Path to store files", type=str, default=".")
     parser.add_argument('-m', '--module', help="Module of which to download exam papers", type=str)
