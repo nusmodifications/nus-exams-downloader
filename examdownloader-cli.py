@@ -5,7 +5,7 @@ import argparse
 
 # Insert configuration here
 username = ""       # NUSNET ID i.e. "E0123456"
-destination = ""    # target destination i.e. "." (current directory)
+destination = "."    # target destination i.e. "." (current directory)
 
 
 def startDownload(module, username, destination, password):
@@ -28,7 +28,7 @@ def startDownload(module, username, destination, password):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Downloads exam papers from UCL automatically")
     parser.add_argument('-u', '--user', help="NUSNET ID", type=str)
-    parser.add_argument('-d', '--dest', help="Path to store files", type=str)
+    parser.add_argument('-d', '--dest', help="Path to store files", type=str, default=".")
     parser.add_argument('-m', '--module', help="Module of which to download exam papers", type=str)
     args = vars(parser.parse_args())
 
