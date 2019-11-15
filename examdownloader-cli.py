@@ -32,20 +32,24 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--module', help="Module of which to download exam papers", type=str)
     args = vars(parser.parse_args())
 
-    module = args.get("module")
+    # If not set by user in top part of the file
     if not username:
         username = args.get("user")
+    # If not set by user even in the command line arguments
     if not username:
         username = raw_input('Enter NUSNET ID: ')
 
+    # always ask for security reasons
     password = getpass.getpass('Enter password for {}: '.format(username))
 
+    # expected to be set newly with each call
+    module = args.get("module")
+    # if not set in CL arguments
     if not module:
         module = raw_input("Enter module to download exams for: ")
 
+    # If not set by user in top part of the file
     if not destination:
         destination = args.get("dest")
-    if not destination:
-        destination = raw_input('Enter location to store exams in: ')
 
     startDownload(module, username, destination, password)
