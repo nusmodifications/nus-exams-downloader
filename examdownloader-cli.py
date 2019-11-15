@@ -4,7 +4,7 @@ import getpass
 import examdownloader
 
 module = 'CS1010S'
-username = 'A0012345'
+username = 'E0123456'
 destination = './'
 
 def startDownload(args):
