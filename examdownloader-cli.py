@@ -5,7 +5,7 @@ import argparse
 
 # Insert configuration here
 username = ""       # NUSNET ID i.e. "E0123456"
-destination = "."    # target destination i.e. "." (current directory)
+destination = ""    # target destination i.e. "." (current directory)
 
 
 def startDownload(module, username, destination, password):
@@ -49,6 +49,7 @@ if __name__ == '__main__':
         module = raw_input("Enter module to download exams for: ")
 
     # If not set by user in top part of the file
+    # defaults to "." by configuration of argparse
     if not destination:
         destination = args.get("dest")
 
