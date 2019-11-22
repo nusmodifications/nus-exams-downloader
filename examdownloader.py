@@ -1,6 +1,28 @@
 import httplib
 import urllib
 import os
+import subprocess
+import platform
+
+
+def openFile(filepath):
+    """
+    Try to open a file in a desktop environment
+    Fails gracefully if an exception occurs or no file is passed
+    """
+    if not filepath:
+        return
+    try:
+        # snippet taken from here: https://stackoverflow.com/a/435669 by fearless_fool
+        if platform.system() == 'Darwin':  # macOS
+            subprocess.call(['open', '-R', filepath])
+        elif platform.system() == 'Windows':  # Windows
+            os.startfile(filepath, 'open')
+        else:  # linux variants
+            subprocess.call(['xdg-open', filepath])
+    except OSError:
+        pass
+
 
 class examdownloader(object):
     def __init__(self, mode):

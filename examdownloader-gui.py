@@ -1,8 +1,7 @@
 from Tkinter import *
 import tkFileDialog
-import subprocess
 import thread
-import examdownloader
+from examdownloader import examdownloader, openFile
 
 FONT = ('Arial', 14, 'bold')
 
@@ -75,12 +74,12 @@ class examdownloadergui(object):
         username = self.usernameField.get()
         password = self.passwordField.get()
         destination = self.destField.get()
-        ed = examdownloader.examdownloader('GUI')
+        ed = examdownloader('GUI')
 
         def downloadCallback(status, lastfile='', numFiles=0):
             if status:
                 self.updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
-                subprocess.call(['open', '-R', lastfile])
+                openFile(lastfile)
             else:
                 self.updateStatus('Paper not released by Department', 'error')
 
