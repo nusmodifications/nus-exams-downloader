@@ -1,7 +1,6 @@
-import subprocess
 import sys
 import getpass
-import examdownloader
+from examdownloader import examdownloader, openFile
 
 module = 'CS1010S'
 username = 'E0123456'
@@ -17,7 +16,7 @@ def startDownload(args):
         username = args[1]
 
     password = getpass.getpass('Enter password for ' + username + ': ')
-    ed = examdownloader.examdownloader('CLI')
+    ed = examdownloader('CLI')
 
 
     def updateStatus(msg, type='normal'):
@@ -26,7 +25,7 @@ def startDownload(args):
     def downloadCallback(status, lastfile='', numFiles=0):
         if status:
             updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
-            subprocess.call(['open', '-R', lastfile])
+            openFile(lastfile)
         else:
             updateStatus('Paper not released by Department', 'error')
 
