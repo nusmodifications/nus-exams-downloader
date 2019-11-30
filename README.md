@@ -9,8 +9,11 @@ Runs on Python 2.7 only.
 
 ### Using via Command Line
 ```
-$ python examdownloader-cli.py <MODULE CODE> <NUSNET ID>
+$ python examdownloader-cli.py
 ```
+
+The required username and target destination can be set in the script or passed as a command line argument.
+If no command line arguments are provided, the user is prompted for input.
 
 ### Using via a Graphical User Interface
 ```
