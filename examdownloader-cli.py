@@ -13,7 +13,7 @@ def startDownload(module, username, destination, password):
     ed = examdownloader.examdownloader('CLI')
 
     def updateStatus(msg, type='normal'):
-        print msg
+        print(msg)
 
     def downloadCallback(status, lastfile='', numFiles=0):
         if status:
@@ -37,7 +37,7 @@ if __name__ == '__main__':
         username = args.get("user")
     # If not set by user even in the command line arguments
     if not username:
-        username = raw_input('Enter NUSNET ID: ')
+        username = input('Enter NUSNET ID: ')
 
     # always ask for security reasons
     password = getpass.getpass('Enter password for {}: '.format(username))
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     module = args.get("module")
     # if not set in CL arguments
     if not module:
-        module = raw_input("Enter module to download exams for: ")
+        module = input("Enter module to download exams for: ")
 
     # If not set by user in top part of the file
     # defaults to "." by configuration of argparse
