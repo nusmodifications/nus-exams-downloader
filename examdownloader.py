@@ -1,5 +1,5 @@
-import httplib
-import urllib
+import http.client
+import urllib.request, urllib.parse, urllib.error
 import os
 
 class examdownloader(object):
@@ -9,7 +9,7 @@ class examdownloader(object):
     def getContents(self, module, username, password, destination, downloadEndCallback, updateStatus):
         updateStatus('Connecting to NUS Library Portals...')
 
-        conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
+        conn = http.client.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/loginAction.do?execution=login'
         conn.request('GET', page)
 
@@ -32,9 +32,9 @@ class examdownloader(object):
             'domain': 'NUSSTU',
             'key': 'blankid+RESULT+EXAM+' + module
         }
-        params = urllib.urlencode(params)
+        params = urllib.parse.urlencode(params)
 
-        conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
+        conn = http.client.HTTPSConnection('libbrs.nus.edu.sg')
         conn.request('POST', page, params, headers)
         resp = conn.getresponse()
         data = str(resp.read())
@@ -44,12 +44,12 @@ class examdownloader(object):
             updateStatus("Wrong username/password", "error")
             return
 
-        conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
+        conn = http.client.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/jsp/login/success.jsp;jsessionid='+sessionid+'?exe=ResultList'
         conn.request('GET', page, params, headersGet)
         conn.close()
 
-        conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
+        conn = http.client.HTTPSConnection('libbrs.nus.edu.sg')
         page = '/infogate/searchAction.do?execution=ResultList'
         params = 'database=EXAM&searchstring='+module+'&d='
         conn.request('POST', page, params, headers)
@@ -68,11 +68,11 @@ class examdownloader(object):
             return
 
         for i in range(1, maxDocIndex+1):
-            conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
+            conn = http.client.HTTPSConnection('libbrs.nus.edu.sg')
             page = '/infogate/searchAction.do?execution=ViewSelectedResultListLong'
             params['preSelectedId'] = i
             params['exportids'] = i
-            conn.request('POST', page, urllib.urlencode(params), headers)
+            conn.request('POST', page, urllib.parse.urlencode(params), headers)
             resp = conn.getresponse()
             data = resp.read()
             conn.close()
@@ -95,11 +95,11 @@ class examdownloader(object):
             pdfs[title] = page
 
         counter = 0;
-        for title, page in pdfs.items():
+        for title, page in list(pdfs.items()):
             counter += 1
             updateStatus('Downloading ' + str(counter) + ' of ' + str(len(pdfs)))
 
-            conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
+            conn = http.client.HTTPSConnection('libbrs.nus.edu.sg')
             conn.request('GET', page, None, headersGet)
             resp = conn.getresponse()
             data = resp.read()
@@ -112,10 +112,10 @@ class examdownloader(object):
                 os.makedirs(os.path.dirname(filename))
             try:
                 f = open(filename, 'wb')
-                print('Writing ' + title)
+                print(('Writing ' + title))
                 f.write(data)
                 f.close()
-            except Exception, e:
+            except Exception as e:
                 updateStatus('Invalid destination', 'error')
                 return
 
