@@ -2,10 +2,11 @@ import subprocess
 import getpass
 import examdownloader
 import argparse
+import os
 
 # Insert configuration here
 username = ""       # NUSNET ID i.e. "E0123456"
-destination = ""    # target destination i.e. "." (current directory)
+base_destination = ""    # target destination i.e. "." (current directory)
 
 
 def startDownload(module, username, destination, password):
@@ -13,12 +14,12 @@ def startDownload(module, username, destination, password):
     ed = examdownloader.examdownloader('CLI')
 
     def updateStatus(msg, type='normal'):
-        print msg
+        print(msg)
 
     def downloadCallback(status, lastfile='', numFiles=0):
         if status:
             updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
-            subprocess.call(['open', '-R', lastfile])
+#            subprocess.call(['open', '-R', lastfile])
         else:
             updateStatus('Paper not released by Department', 'error')
 
@@ -37,20 +38,26 @@ if __name__ == '__main__':
         username = args.get("user")
     # If not set by user even in the command line arguments
     if not username:
-        username = raw_input('Enter NUSNET ID: ')
+        username = input('Enter NUSNET ID: ')
 
     # always ask for security reasons
-    password = getpass.getpass('Enter password for {}: '.format(username))
+     password = getpass.getpass('Enter password for {}: '.format(username))
 
     # expected to be set newly with each call
     module = args.get("module")
     # if not set in CL arguments
     if not module:
-        module = raw_input("Enter module to download exams for: ")
-
+        module = input("Enter module to download exams for (Add commas to seperate multiple module codes): ")
+        
     # If not set by user in top part of the file
     # defaults to "." by configuration of argparse
-    if not destination:
-        destination = args.get("dest")
-
-    startDownload(module, username, destination, password)
+    if not base_destination:
+        base_destination = args.get("dest")
+    
+    for mod in module.split(","):
+        mod = mod.strip()
+        
+        destination = f"{base_destination}/{mod}"
+        
+        # Download each module
+        startDownload(mod, username, destination, password)
