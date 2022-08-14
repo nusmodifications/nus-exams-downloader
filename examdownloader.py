@@ -1,4 +1,4 @@
-import httplib
+import http.client as httplib
 import urllib
 import os
 
@@ -32,7 +32,7 @@ class examdownloader(object):
             'domain': 'NUSSTU',
             'key': 'blankid+RESULT+EXAM+' + module
         }
-        params = urllib.urlencode(params)
+        params = urllib.parse.urlencode(params)
 
         conn = httplib.HTTPSConnection('libbrs.nus.edu.sg')
         conn.request('POST', page, params, headers)
@@ -72,7 +72,7 @@ class examdownloader(object):
             page = '/infogate/searchAction.do?execution=ViewSelectedResultListLong'
             params['preSelectedId'] = i
             params['exportids'] = i
-            conn.request('POST', page, urllib.urlencode(params), headers)
+            conn.request('POST', page, urllib.parse.urlencode(params), headers)
             resp = conn.getresponse()
             data = resp.read()
             conn.close()
@@ -115,7 +115,7 @@ class examdownloader(object):
                 print('Writing ' + title)
                 f.write(data)
                 f.close()
-            except Exception, e:
+            except Exception as e:
                 updateStatus('Invalid destination', 'error')
                 return
 
