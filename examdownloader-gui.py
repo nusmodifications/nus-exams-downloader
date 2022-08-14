@@ -1,7 +1,7 @@
-from Tkinter import *
-import tkFileDialog
+from tkinter import *
+from tkinter import filedialog as tkFileDialog
 import subprocess
-import thread
+import _thread
 import examdownloader
 
 FONT = ('Arial', 14, 'bold')
@@ -43,16 +43,19 @@ class examdownloadergui(object):
         usernameLabel = Label(self.top, text='NUSNET ID:', font=FONT)
         usernameLabel.grid(row=3, column=0)
         self.usernameField = Entry(self.top, bd=2, textvariable=self.username)
+        self.usernameField.insert(0, self.username)
         self.usernameField.grid(row=3, column=1)
 
         passwordLabel = Label(self.top, text='Password:', font=FONT)
         passwordLabel.grid(row=4, column=0)
         self.passwordField = Entry(self.top, bd=2, show='*', textvariable=self.password)
+        self.passwordField.insert(0, self.password)
         self.passwordField.grid(row=4, column=1)
 
         destLabel = Label(self.top, text='Save To Destination:', font=FONT)
         destLabel.grid(row=5, column=0)
         self.destField = Entry(self.top, bd=2, textvariable=self.destination)
+        self.destField.insert(0, self.destination)
         self.destField.grid(row=5, column=1)
         destButton = Button(self.top, text='Choose Folder', command=self.askForDestination)
         destButton.grid(row=5, column=2)
@@ -74,17 +77,20 @@ class examdownloadergui(object):
         module = self.moduleField.get()
         username = self.usernameField.get()
         password = self.passwordField.get()
-        destination = self.destField.get()
+        base_destination = self.destField.get()
         ed = examdownloader.examdownloader('GUI')
 
         def downloadCallback(status, lastfile='', numFiles=0):
             if status:
                 self.updateStatus(str(numFiles) + ' papers downloaded successfully!', 'success')
-                subprocess.call(['open', '-R', lastfile])
+#                subprocess.call(['open', '-R', lastfile])
             else:
                 self.updateStatus('Paper not released by Department', 'error')
 
-        thread.start_new_thread(ed.getContents, (module, username, password, destination, downloadCallback, self.updateStatus))
+        for mod in module.split(','):
+            mod = mod.strip()
+            destination = f"{base_destination}/{mod}/Past Year Papers"
+            _thread.start_new_thread(ed.getContents, (mod, username, password, destination, downloadCallback, self.updateStatus))
 
     def updateStatus(self, msg, type='normal'):
         self.statusLabel['text'] = msg
