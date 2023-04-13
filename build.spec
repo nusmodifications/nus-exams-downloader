@@ -9,7 +9,7 @@ icon_filename = 'icon.icns' if platform.system() == 'Darwin' else 'icon.ico'
 a = Analysis(['examdownloader-gui.py'],
              pathex=['.'],
              binaries=None,
-             datas=None,
+             datas=[('./config.txt', '.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
